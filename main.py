@@ -8,7 +8,7 @@ import random
 # Inicia el pygame
 pygame.init()
 
-#el joc s'ejecuta en la resolució nativa i descobrim els valors de la alçada i amplada
+#el joc s'executa en la resolució nativa i descobrim els valors de l'alçada i amplada
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 x = pygame.display.Info().current_w
 y = pygame.display.Info().current_h
@@ -37,11 +37,12 @@ bulletY = y-320
 bulletX_change = 0
 bulletY_change = 10
 bullet_state = "ready"
+
 # Ready = la podem veure la bala a la pantalla
 # Fire = La bala s'està movent
 
 
-# Creem el Marcador
+# Creem el marcador
 score_value = 0
 fontUI = pygame.font.Font('freesansbold.ttf', 32)
 fontW = pygame.font.Font(None, 128)
@@ -77,7 +78,7 @@ enemy4Y = random.randint(50, 150)
 enemy4X_change = random.randint(1, 3)
 enemy4Y_change = 0
 
-# Creem el Enemic< 5
+# Creem el Enemic 5
 enemy5Img = pygame.image.load('us.png')
 enemy5X = random.randint(0, x)
 enemy5Y = random.randint(50, 150)
@@ -86,14 +87,14 @@ enemy5Y_change = 0
 
 start_ticks = 25000
 
-#aquestes funcions fan que el player, bala, enemic, marcador apareixin
+#Aquestes funcions fan que el player, bala, enemic, marcador apareixin
 def player(x, y):
     screen.blit(playerImg, (x, y))
 
 def fire_bullet(x, y):
     global bullet_state
     bullet_state = "fire"
-    #fa que la bala surti centrada amb el jugador
+    #fa que la bala surti centrada en el jugador
     screen.blit(bulletImg, (x + 135, y + 10))
 
 def show_score(x, y):
@@ -101,7 +102,7 @@ def show_score(x, y):
     screen.blit(score, (x, y))
 
 def timer(x, y):
-    #es resta el temps que dura el joc (25000 ticks) meny els ticks que porta el joc inicia
+    #es resta el temps que dura el joc (25000 tics) menys els tics que porta el joc iniciat
     seconds = (start_ticks - pygame.time.get_ticks()) /1000
     timer = fontUI.render(str(seconds), True, (225, 255, 255))
     screen.blit(timer, (x, y))
@@ -130,7 +131,7 @@ def isCollision(enemyX, enemyY, bulletX, bulletY):
     else:
         return False
 
-# Fem que la finestra del joc funcioni
+# Fem que la finestra del joc funcioni per sempre
 running = True
 while running:
 
@@ -144,7 +145,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        # si les fletxes son presionades canviara el moviment (<-- -5, --> +5)
+        # Si les fletxes són pressionades canviaran el moviment ( +5) (<-- -5, --> +5)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 playerX_change = -5
@@ -157,7 +158,7 @@ while running:
                     bulletX = playerX
                     fire_bullet(bulletX, bulletY)
 
-        #si la fletxa ja no es presionada el moviment es cancela
+        #Si la fletxa ja no és pressionada el moviment és cancel·la
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
@@ -261,11 +262,11 @@ while running:
         bulletY -= bulletY_change
 
 
-    #es resta el temps que dura el joc (25000 ticks) meny els ticks que porta el joc iniciat
+    #es resta el temps que dura el joc (25000 tics) menys els tics que porta el joc iniciat
 
     seconds = (start_ticks - pygame.time.get_ticks()) /1000
 
-    #si els segons són inferiors a 0 canviem el fons i posem text
+    #Si els segons són inferiors a 0 canviem el fons i posem text
     if seconds <= 0:
         playerX = 55555
         enemyY = 55555
@@ -276,18 +277,19 @@ while running:
         testY = 55555
         screen.fill((0, 0, 0))
         game_over = fontW.render('Game Over', True, (255, 255, 255))
-        screen.blit(game_over, (x/2 -128, y/2 -64))
+        screen.blit(game_over, (x/2 -240, y/2 -64))
 
     if score_value == 6611:
         playerX = 5555
         screen.fill((255, 255, 255))
         testY = 55555
-        win = fontW.render('You win', True, (0, 0, 0))
-        screen.blit(win, (x/2 -128, y/2 -32))
+        win = fontW.render('You Win', True, (0, 0, 0))
+        screen.blit(win, (x/2 -160, y/2 -32))
 
     #tots els textos
     show_score(textX, testY)
     timer(testY, testY+40)
+
     #moviment del jugador i dels enemics
 
     playerX += playerX_change
@@ -301,6 +303,7 @@ while running:
     enemy4Y += enemy4Y_change
     enemy5X += enemy5X_change
     enemy5Y += enemy5Y_change
+
     #el jugador i els enemics en si
     player(playerX, playerY)
     enemy(enemyX, enemyY)
