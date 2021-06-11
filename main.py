@@ -312,3 +312,5 @@ while running:
     enemy4(enemy4X, enemy4Y)
     enemy5(enemy5X, enemy5Y)
     pygame.display.update()
+    
+#Roger Calafell Lluc Busquets Èric Monté 2021 cc 
